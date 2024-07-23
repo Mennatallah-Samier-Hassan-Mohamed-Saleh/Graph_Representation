@@ -22,6 +22,7 @@ public:
     int numOfEdges;
     int* Offsets;
     int* Edges;
+    int **Matrix;
  
 public:
     Graph(string name);
@@ -29,6 +30,8 @@ public:
     void convertToCSR(string outName);
 
     void bfsTree(int source);
+
+    void abjacencyMatrix();
 
 };
 #endif

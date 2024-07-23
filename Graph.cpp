@@ -14,18 +14,18 @@ using namespace std;
 Graph::Graph(string Name)
 {
     this->fileName = Name;
-    this->numOfNodes =1;
-    this->numOfEdges =1;
+    this->numOfNodes = 1;
+    this->numOfEdges = 1;
 }
 
 void Graph::convertToCSR(string OutName)
 {
-    /* Create an input file stream object 
+    /* Create an input file stream object
     from the graph constructr
     */
     ifstream file(this->fileName);
 
-    /* Create an output file stream object 
+    /* Create an output file stream object
     named OutName from the function parameter"
     */
     ofstream MyFile(OutName);
@@ -60,8 +60,8 @@ void Graph::convertToCSR(string OutName)
     }
 
     /*Defining number of nodes*/
-    this->numOfNodes = stoi(temp[2]) ;
-    
+    this->numOfNodes = stoi(temp[2]);
+
     /*Defining number of edges*/
     this->numOfEdges = stoi(temp[3]);
 
@@ -104,12 +104,13 @@ void Graph::convertToCSR(string OutName)
         cout << ind[i] << endl;
         MyFile << ind[i] << endl;
     }
-    this->Offsets=ptr;
-    this->Edges=ind;
+    this->Offsets = ptr;
+    this->Edges = ind;
 }
 
-void Graph::bfsTree(int source){
-    
+void Graph::bfsTree(int source)
+{
+
     // Array of parents
     // n : nodes we have
     int *parent = (int *)malloc(sizeof(int) * numOfNodes);
@@ -160,13 +161,14 @@ void Graph::bfsTree(int source){
         //  q_front++;
 
         int current = queue[q_front]; // dequeue
-        cout << "Working on vertex : " << current <<endl;;
+        cout << "Working on vertex : " << current << endl;
+        ;
         q_front++;
         cout << "Updating q_front to: " << q_front << endl;
         // Look at the degree which tell us how long do we need to iterate over
         //  in CSR degree is coming from subtract the offset to your right to your offset
         int degree = Offsets[current + 1] - Offsets[current];
-        cout << "Degree for vetrex: "<< current << " is: " << degree << endl;
+        cout << "Degree for vetrex: " << current << " is: " << degree << endl;
         // Iterate over all the neighbors of this vertex who is currently active
         for (int i = 0; i < degree; i++)
         {
@@ -181,7 +183,7 @@ void Graph::bfsTree(int source){
             if (parent[ngh] == -1)
             {
                 // Add the unvisited neighbor to the queue
-                
+
                 parent[ngh] = current;
                 cout << "Parent of: " << ngh << " is: " << current << endl;
                 // enqueue neighbor
@@ -194,12 +196,12 @@ void Graph::bfsTree(int source){
                 {
                     cout << queue[i] << " ";
                 }
-                cout<<endl;
+                cout << endl;
                 q_back++;
             }
             else
             {
-                cout <<"Neighbor: "<<ngh<<" is already visisted"<<endl;
+                cout << "Neighbor: " << ngh << " is already visisted" << endl;
             }
         }
     }
@@ -215,5 +217,43 @@ void Graph::bfsTree(int source){
         cout << parent[i] << " ";
     }
     cout << endl;
+}
 
+void Graph::abjacencyMatrix()
+{
+    this->Matrix = new int *[this->numOfNodes];
+    int degree;
+    /*Calculate the column index*/
+    int col;
+    /*A counter for the index of Edges array*/
+    int counter = 0;
+    for (int i = 0; i < this->numOfNodes; ++i)
+    {
+        this->Matrix[i] = new int[this->numOfNodes];
+        for (int j = 0; j < this->numOfNodes; j++)
+        {
+            Matrix[i][j] = 0;
+        }
+    }
+    for (int i = 0; i < numOfNodes; ++i)
+    {
+        degree = Offsets[i + 1] - Offsets[i];
+        for (int j = 0; j < degree; j++)
+        {
+            col = Edges[counter];
+            Matrix[i][col] = 1;
+            counter++;
+        }
+    }
+    /*Printing the adjacency matrix*/
+    cout <<"Printing the Adjaceny Matrix: "<<endl;
+    for (int m = 0; m < this->numOfNodes; ++m)
+    {
+        for (int n = 0; n < this->numOfNodes; n++)
+        {
+            cout << Matrix[m][n] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
 }
