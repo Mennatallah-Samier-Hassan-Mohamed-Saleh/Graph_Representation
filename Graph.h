@@ -26,11 +26,11 @@ public:
  
 public:
     Graph(string name);
- 
+    /*Converts Adjacency Graph format to CSR*/
     void convertToCSR(string outName);
-
+    /*Converts CSR to BFS Tree*/
     void bfsTree(int source);
-
+    /*Converts CSR to Adjacency Matrix*/
     void abjacencyMatrix();
 
 };

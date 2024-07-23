@@ -227,6 +227,7 @@ void Graph::abjacencyMatrix()
     int col;
     /*A counter for the index of Edges array*/
     int counter = 0;
+    /*Initializing the array with zeros*/
     for (int i = 0; i < this->numOfNodes; ++i)
     {
         this->Matrix[i] = new int[this->numOfNodes];
@@ -240,8 +241,10 @@ void Graph::abjacencyMatrix()
         degree = Offsets[i + 1] - Offsets[i];
         for (int j = 0; j < degree; j++)
         {
+            /*Getting the Edge and use it as a column for the array*/
             col = Edges[counter];
             Matrix[i][col] = 1;
+            /*Update the index of Edges array*/
             counter++;
         }
     }
