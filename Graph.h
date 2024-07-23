@@ -25,10 +25,17 @@ public:
     int **Matrix;
  
 public:
+    /* Constructor
+    @name: the Graph file name
+    */
     Graph(string name);
-    /*Converts Adjacency Graph format to CSR*/
+    /*Converts Adjacency Graph format to CSR 
+    @outName: output file name
+    */
     void convertToCSR(string outName);
-    /*Converts CSR to BFS Tree*/
+    /*Converts CSR to BFS Tree
+    @source: source of the tree
+    */
     void bfsTree(int source);
     /*Converts CSR to Adjacency Matrix*/
     void abjacencyMatrix();

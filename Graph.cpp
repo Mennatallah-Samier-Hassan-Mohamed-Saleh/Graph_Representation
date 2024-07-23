@@ -14,8 +14,6 @@ using namespace std;
 Graph::Graph(string Name)
 {
     this->fileName = Name;
-    this->numOfNodes = 1;
-    this->numOfEdges = 1;
 }
 
 void Graph::convertToCSR(string OutName)
@@ -34,20 +32,20 @@ void Graph::convertToCSR(string OutName)
     string line;
 
     /*Temporaray vector to read the file*/
-    vector<string> temp;
+    vector<int> temp;
 
-    /*Adding Padding element to match line number with vectore index */
-    temp.push_back("Zero");
 
     /*Reading the file*/
     if (file.is_open())
     {
+        /*Skip the first line*/
+        getline(file, line);
 
         /*Read each line from the file and store it in the 'line' variable.*/
         while (getline(file, line))
         {
             /*Store the line in the temp vector*/
-            temp.push_back(line);
+            temp.push_back(stoi(line));
         }
 
         /*Close the file stream once all lines have been read.*/
@@ -60,14 +58,14 @@ void Graph::convertToCSR(string OutName)
     }
 
     /*Defining number of nodes*/
-    this->numOfNodes = stoi(temp[2]);
+    this->numOfNodes = temp[0];
 
     /*Defining number of edges*/
-    this->numOfEdges = stoi(temp[3]);
+    this->numOfEdges = temp[1];
 
     /*Defining the offsets array*/
     int ptr[numOfNodes + 1];
-    int ptrStart = 4;
+    int ptrStart = 2;
     int ptrSize = sizeof(ptr) / sizeof(int);
 
     /*Defining the indices array*/
@@ -78,7 +76,7 @@ void Graph::convertToCSR(string OutName)
     /*Filling the offsets array*/
     for (int i = 0; i < numOfNodes; i++)
     {
-        ptr[i] = stoi(temp[i + ptrStart]);
+        ptr[i] = temp[i + ptrStart];
     }
     /*The last element should be the total number of edges */
     ptr[numOfNodes] = numOfEdges;
@@ -100,7 +98,7 @@ void Graph::convertToCSR(string OutName)
     MyFile << "Printing the indices array: " << endl;
     for (int i = 0; i < numOfEdges; i++)
     {
-        ind[i] = stoi(temp[i + indStart]);
+        ind[i] = temp[i + indStart];
         cout << ind[i] << endl;
         MyFile << ind[i] << endl;
     }
