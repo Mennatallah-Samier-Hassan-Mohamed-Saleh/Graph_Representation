@@ -16,12 +16,19 @@
 using namespace std;
 
 class Graph {
-private:
+public:
     string fileName;
+    int numOfNodes;
+    int numOfEdges;
+    int* Offsets;
+    int* Edges;
  
 public:
     Graph(string name);
  
     void convertToCSR(string outName);
+
+    void bfsTree(int source);
+
 };
 #endif

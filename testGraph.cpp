@@ -5,4 +5,5 @@ using namespace std;
 int main(){
     Graph obj("simpleGRaph.adj");
     obj.convertToCSR("outputFullGraph");
+    obj.bfsTree(0);
 }
