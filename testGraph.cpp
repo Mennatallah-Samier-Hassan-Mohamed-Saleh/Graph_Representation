@@ -6,7 +6,7 @@ int main(){
     Graph obj("simpleGRaph.adj");
     obj.convertToCSR("outputFullGraph");
     obj.bfsTree(0);
-    obj.abjacencyMatrix();
+    obj.adjacencyMatrix();
 
     Graph obj2("slashdot.adj");
     obj2.convertToCSR("outputFullGraph2");

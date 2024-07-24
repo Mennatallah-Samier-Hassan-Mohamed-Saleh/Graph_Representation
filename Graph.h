@@ -29,6 +29,8 @@ public:
     @name: the Graph file name
     */
     Graph(string name);
+    /*Destructor*/
+    ~Graph();
     /*Converts Adjacency Graph format to CSR 
     @outName: output file name
     */
@@ -38,7 +40,7 @@ public:
     */
     void bfsTree(int source);
     /*Converts CSR to Adjacency Matrix*/
-    void abjacencyMatrix();
+    void adjacencyMatrix();
 
 };
 #endif

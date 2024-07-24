@@ -14,8 +14,30 @@ using namespace std;
 Graph::Graph(string Name)
 {
     this->fileName = Name;
+    this->Offsets = NULL;
+    this->Edges = NULL;
+    this->Matrix = NULL;
 }
 
+Graph::~Graph()
+{
+    if (Offsets != NULL)
+    {
+        delete Offsets;
+    }
+    if (Edges != NULL)
+    {
+        delete Edges;
+    }
+    if (this->Matrix != NULL)
+    {
+        for (int i = 0; i < this->numOfNodes; i++)
+        {
+            delete Matrix[i];
+        }
+        delete Matrix;
+    }
+}
 void Graph::convertToCSR(string OutName)
 {
     /* Create an input file stream object
@@ -33,7 +55,6 @@ void Graph::convertToCSR(string OutName)
 
     /*Temporaray vector to read the file*/
     vector<int> temp;
-
 
     /*Reading the file*/
     if (file.is_open())
@@ -64,12 +85,12 @@ void Graph::convertToCSR(string OutName)
     this->numOfEdges = temp[1];
 
     /*Defining the offsets array*/
-    this->Offsets=new int [numOfNodes + 1];
+    this->Offsets = new int[numOfNodes + 1];
     int OffsetsStart = 2;
     int OffsetsSize = numOfNodes + 1;
 
     /*Defining the Edges array*/
-    this->Edges= new int [numOfEdges];
+    this->Edges = new int[numOfEdges];
     int EdgesStart = OffsetsStart + numOfNodes;
     int EdgesSize = numOfEdges;
 
@@ -106,129 +127,143 @@ void Graph::convertToCSR(string OutName)
 
 void Graph::bfsTree(int source)
 {
-
-    // Array of parents
-    // n : nodes we have
-    int *parent = (int *)malloc(sizeof(int) * numOfNodes);
-
-    // Array of active vetrices which we are currently visiting
-    // Maximum length is n
-    int *queue = (int *)malloc(sizeof(int) * numOfNodes);
-
-    // Initialize the array with -1 which means unvisisted.
-    for (int i = 0; i < numOfNodes; i++)
+    if (this->Offsets == NULL | this->Edges == NULL)
     {
-        parent[i] = -1;
+        cout << "Can't convert to BFS Tree, Please run convertToCSR function first" << endl;
     }
-
-    // Set the head of the queue to the source vetrex which we get from function signature
-    queue[0] = source;
-
-    // Parent of the source vertex equal the source vetrex
-    //  This is a special case as not of others will have themseleves as parent.
-    //  As if we set the source to visited
-    parent[source] = source;
-
-    // How long is the queue right now.
-    int q_front = 0, q_back = 1;
-
-    // until the queue is empty we are going to look only at the front of the queue
-    // And add all the neighbors of whatever was in the front the have not yet been visited
-
-    // Assume the graph is in CSR: offsets and edges array with no weights
-    // We have n vertices and m edges
-    // As long as the queue is not empty q_front != q_back
-    //  1- Dequeue the element at the front of the queue
-    //  2- Look at the degree which tell us how long do we need to iterate over
-    // while queue not empty
-
-    while (q_front != q_back)
+    else
     {
-        // Dequeue what is currently in the queue
-        // queue[q_front++] is post increment so as it is follows:
-        //  int current = queue[q_front];
-        //  q_front++;
 
-        int current = queue[q_front]; // dequeue
-        q_front++;
-        // Look at the degree which tell us how long do we need to iterate over
-        //  in CSR degree is coming from subtract the offset to your right to your offset
-        int degree = Offsets[current + 1] - Offsets[current];
-        // Iterate over all the neighbors of this vertex who is currently active
-        for (int i = 0; i < degree; i++)
+        // Array of parents
+        // n : nodes we have
+        int *parent = (int *)malloc(sizeof(int) * numOfNodes);
+
+        // Array of active vetrices which we are currently visiting
+        // Maximum length is n
+        int *queue = (int *)malloc(sizeof(int) * numOfNodes);
+
+        // Initialize the array with -1 which means unvisisted.
+        for (int i = 0; i < numOfNodes; i++)
         {
-            // Edges array is the neighbor array
-            // Offsets[current] + i : is the currrent index
-            // So we look from the start till the end of a neighbor list in CSR
-            int ngh = Edges[Offsets[current] + i];
+            parent[i] = -1;
+        }
 
-            // check if neighbor has't been visited
-            if (parent[ngh] == -1)
+        // Set the head of the queue to the source vetrex which we get from function signature
+        queue[0] = source;
+
+        // Parent of the source vertex equal the source vetrex
+        //  This is a special case as not of others will have themseleves as parent.
+        //  As if we set the source to visited
+        parent[source] = source;
+
+        // How long is the queue right now.
+        int q_front = 0, q_back = 1;
+
+        // until the queue is empty we are going to look only at the front of the queue
+        // And add all the neighbors of whatever was in the front the have not yet been visited
+
+        // Assume the graph is in CSR: offsets and edges array with no weights
+        // We have n vertices and m edges
+        // As long as the queue is not empty q_front != q_back
+        //  1- Dequeue the element at the front of the queue
+        //  2- Look at the degree which tell us how long do we need to iterate over
+        // while queue not empty
+
+        while (q_front != q_back)
+        {
+            // Dequeue what is currently in the queue
+            // queue[q_front++] is post increment so as it is follows:
+            //  int current = queue[q_front];
+            //  q_front++;
+
+            int current = queue[q_front]; // dequeue
+            q_front++;
+            // Look at the degree which tell us how long do we need to iterate over
+            //  in CSR degree is coming from subtract the offset to your right to your offset
+            int degree = Offsets[current + 1] - Offsets[current];
+            // Iterate over all the neighbors of this vertex who is currently active
+            for (int i = 0; i < degree; i++)
             {
-                // Add the unvisited neighbor to the queue
+                // Edges array is the neighbor array
+                // Offsets[current] + i : is the currrent index
+                // So we look from the start till the end of a neighbor list in CSR
+                int ngh = Edges[Offsets[current] + i];
 
-                parent[ngh] = current;
-                // enqueue neighbor
-                // queue[q_back++] is post increment so as it is follows:
-                // queue[q_back] =ngh;
-                // q_back++;
-                queue[q_back] = ngh;
-                q_back++;
+                // check if neighbor has't been visited
+                if (parent[ngh] == -1)
+                {
+                    // Add the unvisited neighbor to the queue
+
+                    parent[ngh] = current;
+                    // enqueue neighbor
+                    // queue[q_back++] is post increment so as it is follows:
+                    // queue[q_back] =ngh;
+                    // q_back++;
+                    queue[q_back] = ngh;
+                    q_back++;
+                }
             }
         }
-    }
-    cout << "Printing indices of the vertices" << endl;
-    for (int i = 0; i < numOfNodes; i++)
-    {
-        cout << queue[i] << " ";
-    }
-    cout << endl;
-    cout << "Printing the Parent Array" << endl;
-    for (int i = 0; i < numOfNodes; i++)
-    {
-        cout << parent[i] << " ";
-    }
-    cout << endl;
-}
-
-void Graph::abjacencyMatrix()
-{
-    this->Matrix = new int *[this->numOfNodes];
-    int degree;
-    /*Calculate the column index*/
-    int col;
-    /*A counter for the index of Edges array*/
-    int counter = 0;
-    /*Initializing the array with zeros*/
-    for (int i = 0; i < this->numOfNodes; ++i)
-    {
-        this->Matrix[i] = new int[this->numOfNodes];
-        for (int j = 0; j < this->numOfNodes; j++)
+        cout << "Printing indices of the vertices" << endl;
+        for (int i = 0; i < numOfNodes; i++)
         {
-            Matrix[i][j] = 0;
+            cout << queue[i] << " ";
         }
-    }
-    for (int i = 0; i < numOfNodes; ++i)
-    {
-        degree = Offsets[i + 1] - Offsets[i];
-        for (int j = 0; j < degree; j++)
+        cout << endl;
+        cout << "Printing the Parent Array" << endl;
+        for (int i = 0; i < numOfNodes; i++)
         {
-            /*Getting the Edge and use it as a column for the array*/
-            col = Edges[counter];
-            Matrix[i][col] = 1;
-            /*Update the index of Edges array*/
-            counter++;
-        }
-    }
-    /*Printing the adjacency matrix*/
-    cout <<"Printing the Adjaceny Matrix: "<<endl;
-    for (int m = 0; m < this->numOfNodes; ++m)
-    {
-        for (int n = 0; n < this->numOfNodes; n++)
-        {
-            cout << Matrix[m][n] << " ";
+            cout << parent[i] << " ";
         }
         cout << endl;
     }
-    cout << endl;
+}
+
+void Graph::adjacencyMatrix()
+{
+    if (this->Offsets == NULL | this->Edges == NULL)
+    {
+        cout << "Can't convert to Adjacency Matrix, Please run convertToCSR function first" << endl;
+    }
+    else
+    {
+        this->Matrix = new int *[this->numOfNodes];
+        int degree;
+        /*Calculate the column index*/
+        int col;
+        /*A counter for the index of Edges array*/
+        int counter = 0;
+        /*Initializing the array with zeros*/
+        for (int i = 0; i < this->numOfNodes; ++i)
+        {
+            this->Matrix[i] = new int[this->numOfNodes];
+            for (int j = 0; j < this->numOfNodes; j++)
+            {
+                Matrix[i][j] = 0;
+            }
+        }
+        for (int i = 0; i < numOfNodes; ++i)
+        {
+            degree = Offsets[i + 1] - Offsets[i];
+            for (int j = 0; j < degree; j++)
+            {
+                /*Getting the Edge and use it as a column for the array*/
+                col = Edges[counter];
+                Matrix[i][col] = 1;
+                /*Update the index of Edges array*/
+                counter++;
+            }
+        }
+        /*Printing the adjacency matrix*/
+        cout << "Printing the Adjaceny Matrix: " << endl;
+        for (int m = 0; m < this->numOfNodes; ++m)
+        {
+            for (int n = 0; n < this->numOfNodes; n++)
+            {
+                cout << Matrix[m][n] << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
 }
