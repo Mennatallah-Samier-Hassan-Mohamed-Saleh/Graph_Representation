@@ -143,14 +143,7 @@ void Graph::bfsTree(int source)
     //  1- Dequeue the element at the front of the queue
     //  2- Look at the degree which tell us how long do we need to iterate over
     // while queue not empty
-    cout << "Starting q_front: " << q_front << endl;
-    cout << "Starting q_back: " << q_back << endl;
-    cout << "Initial queue is: " << endl;
-    for (int i = 0; i < numOfNodes; ++i)
-    {
-        cout << queue[i] << " ";
-    }
-    cout << endl;
+
     while (q_front != q_back)
     {
         // Dequeue what is currently in the queue
@@ -159,47 +152,30 @@ void Graph::bfsTree(int source)
         //  q_front++;
 
         int current = queue[q_front]; // dequeue
-        cout << "Working on vertex : " << current << endl;
-        ;
         q_front++;
-        cout << "Updating q_front to: " << q_front << endl;
         // Look at the degree which tell us how long do we need to iterate over
         //  in CSR degree is coming from subtract the offset to your right to your offset
         int degree = Offsets[current + 1] - Offsets[current];
-        cout << "Degree for vetrex: " << current << " is: " << degree << endl;
         // Iterate over all the neighbors of this vertex who is currently active
         for (int i = 0; i < degree; i++)
         {
-            cout << "Processing edge: " << i << " for element:" << current << endl;
             // Edges array is the neighbor array
             // Offsets[current] + i : is the currrent index
             // So we look from the start till the end of a neighbor list in CSR
             int ngh = Edges[Offsets[current] + i];
 
-            cout << "Neighbor is: " << ngh << endl;
             // check if neighbor has't been visited
             if (parent[ngh] == -1)
             {
                 // Add the unvisited neighbor to the queue
 
                 parent[ngh] = current;
-                cout << "Parent of: " << ngh << " is: " << current << endl;
                 // enqueue neighbor
                 // queue[q_back++] is post increment so as it is follows:
                 // queue[q_back] =ngh;
                 // q_back++;
                 queue[q_back] = ngh;
-                cout << "new queue is: " << endl;
-                for (int i = 0; i < numOfNodes; ++i)
-                {
-                    cout << queue[i] << " ";
-                }
-                cout << endl;
                 q_back++;
-            }
-            else
-            {
-                cout << "Neighbor: " << ngh << " is already visisted" << endl;
             }
         }
     }
