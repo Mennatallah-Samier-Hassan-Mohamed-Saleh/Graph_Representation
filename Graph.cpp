@@ -64,46 +64,44 @@ void Graph::convertToCSR(string OutName)
     this->numOfEdges = temp[1];
 
     /*Defining the offsets array*/
-    int ptr[numOfNodes + 1];
-    int ptrStart = 2;
-    int ptrSize = sizeof(ptr) / sizeof(int);
+    this->Offsets=new int [numOfNodes + 1];
+    int OffsetsStart = 2;
+    int OffsetsSize = numOfNodes + 1;
 
-    /*Defining the indices array*/
-    int ind[numOfEdges];
-    int indStart = ptrStart + numOfNodes;
-    int indSize = sizeof(ind) / sizeof(int);
+    /*Defining the Edges array*/
+    this->Edges= new int [numOfEdges];
+    int EdgesStart = OffsetsStart + numOfNodes;
+    int EdgesSize = numOfEdges;
 
     /*Filling the offsets array*/
     for (int i = 0; i < numOfNodes; i++)
     {
-        ptr[i] = temp[i + ptrStart];
+        this->Offsets[i] = temp[i + OffsetsStart];
     }
     /*The last element should be the total number of edges */
-    ptr[numOfNodes] = numOfEdges;
+    this->Offsets[numOfNodes] = numOfEdges;
 
-    cout << "Size of the ptr array is: " << ptrSize << endl;
-    MyFile << "Size of the ptr array is: " << ptrSize << endl;
-    cout << "Printing the ptr array: " << endl;
-    MyFile << "Printing the ptr array: " << endl;
-    for (int i = 0; i < ptrSize; i++)
+    cout << "Size of the Offsets array is: " << OffsetsSize << endl;
+    MyFile << "Size of the Offsets array is: " << OffsetsSize << endl;
+    cout << "Printing the Offsets array: " << endl;
+    MyFile << "Printing the Offsets array: " << endl;
+    for (int i = 0; i < OffsetsSize; i++)
     {
-        cout << ptr[i] << endl;
-        MyFile << ptr[i] << endl;
+        cout << this->Offsets[i] << endl;
+        MyFile << this->Edges[i] << endl;
     }
 
-    /*Filling and printing the indices array*/
-    cout << "Size of the indices array is: " << indSize << endl;
-    MyFile << "Size of the indices array is: " << indSize << endl;
-    cout << "Printing the indices array: " << endl;
-    MyFile << "Printing the indices array: " << endl;
+    /*Filling and printing the Edges array*/
+    cout << "Size of the Edges array is: " << EdgesSize << endl;
+    MyFile << "Size of the Edges array is: " << EdgesSize << endl;
+    cout << "Printing the Edges array: " << endl;
+    MyFile << "Printing the Edges array: " << endl;
     for (int i = 0; i < numOfEdges; i++)
     {
-        ind[i] = temp[i + indStart];
-        cout << ind[i] << endl;
-        MyFile << ind[i] << endl;
+        this->Edges[i] = temp[i + EdgesStart];
+        cout << this->Edges[i] << endl;
+        MyFile << this->Edges[i] << endl;
     }
-    this->Offsets = ptr;
-    this->Edges = ind;
 }
 
 void Graph::bfsTree(int source)
