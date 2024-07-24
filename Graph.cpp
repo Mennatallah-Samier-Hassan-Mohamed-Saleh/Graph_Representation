@@ -88,7 +88,7 @@ void Graph::convertToCSR(string OutName)
     for (int i = 0; i < OffsetsSize; i++)
     {
         cout << this->Offsets[i] << endl;
-        MyFile << this->Edges[i] << endl;
+        MyFile << this->Offsets[i] << endl;
     }
 
     /*Filling and printing the Edges array*/
