@@ -11,5 +11,5 @@ int main(){
     Graph obj2("slashdot.adj");
     obj2.convertToCSR("outputFullGraph2");
     //obj2.bfsTree(1);
-    //obj2.abjacencyMatrix();
+    //obj2.adjacencyMatrix();
 }
