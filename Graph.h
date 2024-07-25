@@ -16,7 +16,7 @@
 using namespace std;
 
 class Graph {
-public:
+private:
     string fileName;
     int numOfNodes;
     int numOfEdges;

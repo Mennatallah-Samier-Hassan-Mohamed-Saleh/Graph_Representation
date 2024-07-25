@@ -254,16 +254,34 @@ void Graph::adjacencyMatrix()
                 counter++;
             }
         }
-        /*Printing the adjacency matrix*/
-        cout << "Printing the Adjaceny Matrix: " << endl;
-        for (int m = 0; m < this->numOfNodes; ++m)
+        if (this->numOfEdges <= 10)
         {
-            for (int n = 0; n < this->numOfNodes; n++)
+            /*Printing the adjacency matrix*/
+            cout << "Printing the Full Adjaceny Matrix: " << endl;
+            for (int m = 0; m < this->numOfNodes; ++m)
             {
-                cout << Matrix[m][n] << " ";
+                for (int n = 0; n < this->numOfNodes; n++)
+                {
+                    cout << Matrix[m][n] << " ";
+                }
+                cout << endl;
             }
             cout << endl;
         }
-        cout << endl;
+        else
+        {
+            cout << "Printing the sparse Adjaceny Matrix: " << endl;
+            for (int m = 0; m < this->numOfNodes; ++m)
+            {
+                for (int n = 0; n < this->numOfNodes; n++)
+                {
+                    if (Matrix[m][n] == 1)
+                    {
+                        cout << m << " " << n << " " << Matrix[m][n] << endl;
+                    }
+                }
+            }
+            cout << endl;
+        }
     }
 }
