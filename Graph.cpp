@@ -125,7 +125,7 @@ void Graph::convertToCSR(string OutName)
     }
 }
 
-void Graph::bfsTree(int source)
+void Graph::bfsTree(int source, string outName)
 {
     if (this->Offsets == NULL | this->Edges == NULL)
     {
@@ -204,6 +204,7 @@ void Graph::bfsTree(int source)
                 }
             }
         }
+        ofstream MyFile(outName);
         cout << "Printing indices of the vertices" << endl;
         for (int i = 0; i < numOfNodes; i++)
         {
@@ -211,9 +212,11 @@ void Graph::bfsTree(int source)
         }
         cout << endl;
         cout << "Printing the Parent Array" << endl;
+        MyFile << "Printing the Parent Array" << endl;
         for (int i = 0; i < numOfNodes; i++)
         {
             cout << parent[i] << " ";
+            MyFile << parent[i] << " ";
         }
         cout << endl;
     }
@@ -234,7 +237,7 @@ void Graph::adjacencyMatrix()
         /*A counter for the index of Edges array*/
         int counter = 0;
         /*Initializing the array with zeros*/
-        cout<<"Before initialization"<<endl;
+        cout << "Before initialization" << endl;
         for (int i = 0; i < this->numOfNodes; ++i)
         {
             this->Matrix[i] = new int[this->numOfNodes];
@@ -243,7 +246,7 @@ void Graph::adjacencyMatrix()
                 Matrix[i][j] = 0;
             }
         }
-        cout<<"After initialization"<<endl;
+        cout << "After initialization" << endl;
         for (int i = 0; i < numOfNodes; ++i)
         {
             degree = Offsets[i + 1] - Offsets[i];

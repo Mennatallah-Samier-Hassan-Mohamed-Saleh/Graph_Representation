@@ -38,7 +38,7 @@ public:
     /*Converts CSR to BFS Tree
     @source: source of the tree
     */
-    void bfsTree(int source);
+    void bfsTree(int source, string outName);
     /*Converts CSR to Adjacency Matrix*/
     void adjacencyMatrix();
 
