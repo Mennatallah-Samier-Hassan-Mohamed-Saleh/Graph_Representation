@@ -212,43 +212,43 @@ void Graph::bfsTree(int source, string outName)
         }
         cout << endl;
         cout << "Printing the Parent Array" << endl;
-        MyFile << "Printing the Parent Array" << endl;
+        //MyFile << "Printing the Parent Array" << endl;
         for (int i = 0; i < numOfNodes; i++)
         {
             cout << parent[i] << " ";
-            MyFile << parent[i] << " ";
+            //MyFile << parent[i] << " ";
         }
         cout << endl;
 
+        /*Array to save distances*/ 
         int *distance = (int *)malloc(sizeof(int) * numOfNodes);
+        /*Temporary Varibles*/
         int check, temp;
-        // Initialize the array with -1 which means unvisisted.
         for (int i = 0; i < numOfNodes; i++)
         {
-            cout << "Working with i:" << i << endl;
             check = parent[i];
-            cout << "Start with check:" << parent[i] << endl;
             int countDistance = 0;
-            cout << "Start with countDistance:" << countDistance << endl;
+            /*Check if the parent of this vertex is the source*/
             while (check != source)
             {
+                /*Storing the parent of the previous parent*/
                 temp = parent[check];
-                cout << "Temp:" << temp << endl;
+                /*Update the parent to check*/
                 check = temp;
-                cout << "check:" << check << endl;
+                /*Increment the distance from the source by 1*/
                 countDistance++;
-                cout << "countDistance:" << countDistance << endl;
             }
+            /*Update the distance matrix*/
             distance[i] = countDistance;
-            cout << "Distance of i: " << i << " is" << distance[i] << endl;
         }
-
+        /*The source is a special case, the distance is 0*/
         distance[source] = 0;
-
-        cout << "Printing the distance of the vertices" << endl;
+        cout << "Printing the Distance Array" << endl;
+        MyFile << "Printing the Distance Array" << endl;
         for (int i = 0; i < numOfNodes; i++)
         {
             cout << distance[i] << " ";
+            MyFile << distance[i] << " ";
         }
     }
 }
