@@ -219,6 +219,37 @@ void Graph::bfsTree(int source, string outName)
             MyFile << parent[i] << " ";
         }
         cout << endl;
+
+        int *distance = (int *)malloc(sizeof(int) * numOfNodes);
+        int check, temp;
+        // Initialize the array with -1 which means unvisisted.
+        for (int i = 0; i < numOfNodes; i++)
+        {
+            cout << "Working with i:" << i << endl;
+            check = parent[i];
+            cout << "Start with check:" << parent[i] << endl;
+            int countDistance = 0;
+            cout << "Start with countDistance:" << countDistance << endl;
+            while (check != source)
+            {
+                temp = parent[check];
+                cout << "Temp:" << temp << endl;
+                check = temp;
+                cout << "check:" << check << endl;
+                countDistance++;
+                cout << "countDistance:" << countDistance << endl;
+            }
+            distance[i] = countDistance;
+            cout << "Distance of i: " << i << " is" << distance[i] << endl;
+        }
+
+        distance[source] = 0;
+
+        cout << "Printing the distance of the vertices" << endl;
+        for (int i = 0; i < numOfNodes; i++)
+        {
+            cout << distance[i] << " ";
+        }
     }
 }
 
