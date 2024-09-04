@@ -212,15 +212,15 @@ void Graph::bfsTree(int source, string outName)
         }
         cout << endl;
         cout << "Printing the Parent Array" << endl;
-        //MyFile << "Printing the Parent Array" << endl;
+        // MyFile << "Printing the Parent Array" << endl;
         for (int i = 0; i < numOfNodes; i++)
         {
             cout << parent[i] << " ";
-            //MyFile << parent[i] << " ";
+            // MyFile << parent[i] << " ";
         }
         cout << endl;
 
-        /*Array to save distances*/ 
+        /*Array to save distances*/
         int *distance = (int *)malloc(sizeof(int) * numOfNodes);
         /*Temporary Varibles*/
         int check, temp;
@@ -228,18 +228,25 @@ void Graph::bfsTree(int source, string outName)
         {
             check = parent[i];
             int countDistance = 0;
-            /*Check if the parent of this vertex is the source*/
-            while (check != source)
+            if (check == -1)
             {
-                /*Storing the parent of the previous parent*/
-                temp = parent[check];
-                /*Update the parent to check*/
-                check = temp;
-                /*Increment the distance from the source by 1*/
-                countDistance++;
+                distance[i] = -1;
             }
-            /*Update the distance matrix*/
-            distance[i] = countDistance;
+            else
+            {
+                /*Check if the parent of this vertex is the source*/
+                while (check != source)
+                {
+                    /*Storing the parent of the previous parent*/
+                    temp = parent[check];
+                    /*Update the parent to check*/
+                    check = temp;
+                    /*Increment the distance from the source by 1*/
+                    countDistance++;
+                }
+                /*Update the distance matrix*/
+                distance[i] = countDistance;
+            }
         }
         /*The source is a special case, the distance is 0*/
         distance[source] = 0;
