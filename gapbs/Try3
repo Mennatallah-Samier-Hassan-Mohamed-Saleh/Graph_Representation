@@ -1,0 +1,126 @@
+Manosha I am here A: 
+Read Time:           0.46295
+Number of nodes is still -1
+Build Time:          0.05827
+Manosha I am here C: 
+Manosha I am here C: 
+Graph has 77361 nodes and 938360 directed edges for degree: 12
+Trial Time:          0.00268
+Trial Time:          0.00057
+Trial Time:          0.00065
+Trial Time:          0.00058
+Trial Time:          0.00067
+Trial Time:          0.00055
+Trial Time:          0.00050
+Trial Time:          0.00049
+Trial Time:          0.00049
+Trial Time:          0.00062
+Trial Time:          0.00055
+Trial Time:          0.00052
+Trial Time:          0.00052
+Trial Time:          0.00049
+Trial Time:          0.00048
+Trial Time:          0.00048
+Average Time:        0.00068
+Manosha I am here A: 
+Read Time:           0.42532
+Number of nodes is still -1
+After FindMax Number of nodes is: 77361
+Build Time:          0.03480
+Manosha I am here C: 
+Manosha I am here C: 
+Graph has 77361 nodes and 938360 directed edges for degree: 12
+Trial Time:          0.00091
+Trial Time:          0.00322
+Trial Time:          0.00076
+Trial Time:          0.00051
+Trial Time:          0.00059
+Trial Time:          0.00048
+Trial Time:          0.00045
+Trial Time:          0.00051
+Trial Time:          0.00046
+Trial Time:          0.00059
+Trial Time:          0.00044
+Trial Time:          0.00046
+Trial Time:          0.00046
+Trial Time:          0.00363
+Trial Time:          0.00044
+Trial Time:          0.00047
+Average Time:        0.00090
+I am here A: 
+Read Time:           0.43061
+Number of nodes is still -1
+After FindMax Number of nodes is: 77361
+Build Time:          0.03405
+I am here C: 
+I am here C: 
+Graph has 77361 nodes and 938360 directed edges for degree: 12
+Trial Time:          0.00095
+Trial Time:          0.00453
+Trial Time:          0.00064
+Trial Time:          0.00057
+Trial Time:          0.00065
+Trial Time:          0.00057
+Trial Time:          0.00052
+Trial Time:          0.00052
+Trial Time:          0.00051
+Trial Time:          0.00065
+Trial Time:          0.00053
+Trial Time:          0.00053
+Trial Time:          0.00052
+Trial Time:          0.00048
+Trial Time:          0.00055
+Trial Time:          0.00046
+Average Time:        0.00082
+I am here A: 
+Couldn't open file ../Graph_Representation/slashdot_2.mtx
+I am here A: 
+Read Time:           0.42175
+Number of nodes is still -1
+After FindMax Number of nodes is: 77361
+Build Time:          0.03564
+I am here C: 
+I am here C: 
+Graph has 77361 nodes and 938360 directed edges for degree: 12
+Trial Time:          0.00095
+Trial Time:          0.00758
+Trial Time:          0.00081
+Trial Time:          0.00057
+Trial Time:          0.00070
+Trial Time:          0.00053
+Trial Time:          0.00049
+Trial Time:          0.00049
+Trial Time:          0.00049
+Trial Time:          0.00061
+Trial Time:          0.00051
+Trial Time:          0.00051
+Trial Time:          0.00052
+Trial Time:          0.00055
+Trial Time:          0.00047
+Trial Time:          0.00050
+Average Time:        0.00102
+I am here A: 
+Read Time:           0.42811
+Number of nodes is still -1
+After FindMax Number of nodes is: 77361
+Build Time:          0.03258
+I am here C: 
+I am here C: 
+Graph has 77361 nodes and 938360 directed edges for degree: 12
+Trial Time:          0.00890
+Trial Time:          0.00050
+Trial Time:          0.00059
+Trial Time:          0.00052
+Trial Time:          0.00062
+Trial Time:          0.00050
+Trial Time:          0.00050
+Trial Time:          0.00048
+Trial Time:          0.00056
+Trial Time:          0.00063
+Trial Time:          0.00049
+Trial Time:          0.00059
+Trial Time:          0.00053
+Trial Time:          0.00048
+Trial Time:          0.00048
+Trial Time:          0.00048
+Average Time:        0.00105
